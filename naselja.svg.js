@@ -1,15 +1,12 @@
-var mapData={
-   "width": "800",
-   "height": "500",
+var svgData={
+   "width": "600",
+   "height": "400",
    "viewBox": "0 0 3508.7898 4099.9086",
-   "style": "display: none",
    "g": [
       {
          "id": "layer86",
          "style": "display:inline",
          "transform": "translate(-509.33579,2093.7513)",
-
-         "name":"Слепчевић",
          "path": {
             "id": "path5298",
             "style": "fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-opacity:1",
@@ -20,8 +17,6 @@ var mapData={
          "id": "layer84",
          "style": "display:inline",
          "transform": "translate(-509.33579,2093.7513)",
-
-         "name":"",
          "path": {
             "id": "path5128",
             "style": "display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-opacity:1",
