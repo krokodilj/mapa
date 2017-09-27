@@ -52,16 +52,20 @@ svgData.g.forEach(function(element,i){
 svg.selectAll("path").data(data);
 
 
+//animation
+var animation=function(time){
+svg.selectAll("path").style("stroke-width","500px")
+svg.selectAll("path").transition().duration(time).style("stroke-width","10px")
+}
+animation(2000)
 
-svg.selectAll("path").transition().duration(2000).style("stroke-width","10px")
-
+//color scale for heatmap
 colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494"]
 var colorScale = d3.scaleLinear()
     .domain([0, +1000,+2000,+4000,+8000,+16000,+32000,+64000])
     .range(colors);
 
 //actions on buttons
-
 d3.select("#all_btn")
 	.on("click",function(){
 		//show all elements 
@@ -70,7 +74,7 @@ d3.select("#all_btn")
 		d3.selectAll("path")
 			.style("fill","blue")
 
-
+		animation(750)
 	})
 
 d3.select("#city_btn")
@@ -87,7 +91,7 @@ d3.select("#city_btn")
 			})
 			.style("fill","blue")
 
-
+		animation(750)
 	})
 
 d3.select("#suburb_btn")
@@ -104,6 +108,7 @@ d3.select("#suburb_btn")
 			})
 			.style("fill","blue")
 
+		animation(750)
 
 	})
 
@@ -121,6 +126,7 @@ d3.select("#village_btn")
 			})
 			.style("fill","blue")
 
+		animation(750)
 
 	})
 
@@ -130,5 +136,6 @@ d3.select("#population_btn")
 		d3.selectAll("path")
 			.style("fill",function(d){return colorScale(d.population)})
 
+	animation(750)
 
 	})
