@@ -25,7 +25,7 @@ var data=[
 
 	{
 		"name":	"Поцерски причиновић",
-		"type":	"сеоско насеље"	,
+		"type":	"приградско насеље"	,
 		"population": 6465,
 		"populationSource":	"попис 2011 - wikipedia"	
 

@@ -28,6 +28,7 @@ svgData.g.forEach(function(element,i){
 			.style("fill","blue")
 					.style("stroke-width","500px")
 					.style("stroke","#FFFFFF")
+					.style("cursor","pointer")
 					.on("mouseover", function(d) {	
 			            div.transition()		
 			                .duration(200)		
@@ -48,11 +49,86 @@ svgData.g.forEach(function(element,i){
 
 
 //bind data to polygons
-
 svg.selectAll("path").data(data);
 
 
+
 svg.selectAll("path").transition().duration(2000).style("stroke-width","10px")
-	
+
+colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494"]
+var colorScale = d3.scaleLinear()
+    .domain([0, +1000,+2000,+4000,+8000,+16000,+32000,+64000])
+    .range(colors);
+
+//actions on buttons
+
+d3.select("#all_btn")
+	.on("click",function(){
+		//show all elements 
+		//fill with blue
+
+		d3.selectAll("path")
+			.style("fill","blue")
 
 
+	})
+
+d3.select("#city_btn")
+	.on("click",function(){
+		//show city elements 
+		//fill with blue
+
+		d3.selectAll("path")
+			.style("fill","gray")
+
+		d3.selectAll("path")
+			.filter(function(d){
+				return d.type=="градско насеље"
+			})
+			.style("fill","blue")
+
+
+	})
+
+d3.select("#suburb_btn")
+	.on("click",function(){
+		//show suburb elements 
+		//fill with blue
+
+		d3.selectAll("path")
+			.style("fill","gray")
+
+		d3.selectAll("path")
+			.filter(function(d){
+				return d.type=="приградско насеље"
+			})
+			.style("fill","blue")
+
+
+	})
+
+d3.select("#village_btn")
+	.on("click",function(){
+		//show village elements 
+		//fill with blue
+
+		d3.selectAll("path")
+			.style("fill","gray")
+
+		d3.selectAll("path")
+			.filter(function(d){
+				return d.type=="сеоско насеље"
+			})
+			.style("fill","blue")
+
+
+	})
+
+d3.select("#population_btn")
+	.on("click",function(){
+
+		d3.selectAll("path")
+			.style("fill",function(d){return colorScale(d.population)})
+
+
+	})
