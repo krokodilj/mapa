@@ -10,6 +10,18 @@ var div = d3.select("body").append("div")
 //display data div
 var displayData = d3.select("#data_container")
 
+d3.select("#zoom_container").style("display","none")
+
+d3.select("#back_btn").on("click",function(){
+
+	d3.select("#map_container").style("display","inline")
+	d3.select("#zoom_container").style("display","none")
+	d3.select("#zoom_container").select("svg").remove()
+
+	animation(750)
+
+})
+
 var timer
 
 //create map
@@ -18,6 +30,7 @@ var svg=cnt.append("svg")
 				.attr("height",svgData.height)
 				.attr("width",svgData.width)
 				.attr("viewBox",svgData.viewBox)
+
 svgData.g.forEach(function(element,i){
 	svg.append("g")
 		.attr("style",element.style)
@@ -45,11 +58,30 @@ svgData.g.forEach(function(element,i){
 			                .style("opacity", 0);	
 			        })
 			        .on("click",function(d){
+
 			        	if(d.clicked){
 			        		//doubleclick event
 			        		d.clicked = false;
 						    clearTimeout(timer);
-						    alert("doubleclick");
+						    d3.select("#map_container").style("display","none")
+							d3.select("#zoom_container").style("display","inline")
+						    //append
+						    d3.select("#zoom_container")
+						    	.append("svg")
+						    		.attr("height",svgData.height)
+									.attr("width",svgData.width)
+									.attr("viewBox","0 0 500 500")
+									.append("g")	
+
+							    		.attr("style",element.style)
+										//.attr("transform",element.transform)
+											.append("path")
+
+											.attr("style",element.path.style)
+											.attr("d",element.path.d)
+
+											.style("fill","blue")
+											.data(d)
 			        	}
 			        	else{
 			        		//single clicl event
@@ -80,6 +112,7 @@ colors = ["#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494",
 var colorScale = d3.scaleLinear()
     .domain([0, +1000,+2000,+4000,+8000,+16000,+32000,+64000])
     .range(colors);
+
 
 //actions on buttons
 d3.select("#all_btn")
