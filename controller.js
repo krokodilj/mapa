@@ -6,9 +6,11 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")				
     .style("opacity", 0);
 
+
 //display data div
 var displayData = d3.select("#data_container")
 
+var timer
 
 //create map
 var cnt = d3.select("#map_container")
@@ -43,7 +45,21 @@ svgData.g.forEach(function(element,i){
 			                .style("opacity", 0);	
 			        })
 			        .on("click",function(d){
-			        	displayData.html("назив : "+d.name+"<br> тип : "+d.type+"<br> популација : "+d.population+"		извор : "+d.populationSource)
+			        	if(d.clicked){
+			        		//doubleclick event
+			        		d.clicked = false;
+						    clearTimeout(timer);
+						    alert("doubleclick");
+			        	}
+			        	else{
+			        		//single clicl event
+			        		timer = setTimeout(function() {
+					           displayData.html("назив : "+d.name+"<br> тип : "+d.type+"<br> популација : "+d.population+"		извор : "+d.populationSource)
+			        			d.clicked=false
+					        }, 300);
+					        d.clicked = true;
+			        		
+			        	}
 			        });
 })
 
@@ -59,8 +75,8 @@ svg.selectAll("path").transition().duration(time).style("stroke-width","10px")
 }
 animation(2000)
 
-//color scale for heatmap
-colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494"]
+//color scale for heatmap "#ffffd9"
+colors = ["#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]
 var colorScale = d3.scaleLinear()
     .domain([0, +1000,+2000,+4000,+8000,+16000,+32000,+64000])
     .range(colors);
