@@ -3,7 +3,7 @@ var mapData=
 	{
 		"data":{},
 		"svg":{
-			"width": "800",
+			"width": "600",
 		   "height": "600",
 		   "viewBox": "0 0 3508.7898 4099.9086"		
 		}	

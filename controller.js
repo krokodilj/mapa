@@ -1,35 +1,108 @@
+//add tooltip
+var tooltip = d3.select("body").append("div")	
+	    .attr("class", "tooltip")				
+	    .style("opacity", 0);
+
+//view naselja
+d3.select("#viewNaselja").on("click",function(){
+
+	//add card to viewList
+	addView("naselja")
+})
+
+var removeView=function(viewName){
+	//remove from viewList
+	d3.select("#"+viewName+"Card").remove()
+	//remove from map_container
+	d3.select("#"+viewName+"Map").remove()
+	//remove from button_container	
+	d3.select("#"+viewName+"Btns").remove()
+	//remove from data_container
+	d3.select("#"+viewName+"Data").remove()
+}
+
+var selectView=function(viewName){
+
+	d3.select("#map_container")
+		.selectAll("svg")
+			.style("display","none")
+
+	d3.select("#"+viewName+"Map")
+		.style("display","inline")
+
+	d3.select("#button_container")
+		.selectAll("div")
+			.style("display","none")
+
+	d3.select("#"+viewName+"Btns")
+		.style("display","inline")
+
+	d3.select("#data_container")
+		.selectAll("div")
+			.style("display","none")
+
+	d3.select("#"+viewName+"Data")
+		.style("display","inline")
+}
+
+var addView=function(viewName,element){
+
+	//add view list card
+	{
+		cardList=d3.select("#viewList")
+		
+		div=cardList.append("div")				
+					.attr("id",viewName+"Card")
+		div.append("button")
+			.text(viewName)
+			.on("click",function(){selectView(viewName)})
+		div.append("button")
+			.text("X")
+			.on("click",function(){removeView(viewName)})
+	}
+
+	//add view data
+	{
+		dataContainer=d3.select("#data_container")
+
+		dataContainer
+			.append("div")
+				.attr("id",viewName+"Data")
+	}
 
 
-//tooltip div
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+	//add view map
 
-d3.select("#zoom_container").style("display","none")
+    mapContainer=d3.select("#map_container")
+	//
+	if(viewName!="naselja") {
 
-		d3.select("#back_btn").on("click",function(){
+		
+		mapContainer
+		   	.append("svg")
+		   		.attr("id",viewName+"Map")
+		   		.attr("height",mapData.svg.height)
+				.attr("width",mapData.svg.width)
+				.attr("viewBox",element.svg.viewBox)
+				.append("g")	
+					.append("path")
+						.attr("d",element.svg.path)
+						.style("fill","blue")
 
-			d3.select("#map_container").style("display","inline")
-			d3.select("#zoom_container").style("display","none")
-			d3.select("#zoom_container").select("svg").remove()
 
-			animation(750)
+		return 
+	}
+	var timer
 
-		})
-
-var timer
-
-
-var svg=d3.select("#map_container").append("svg")
+	var svg=mapContainer.append("svg")
+						.attr("id",viewName+"Map")
 						.attr("height",mapData.svg.height)
 						.attr("width",mapData.svg.width)
 						.attr("viewBox",mapData.svg.viewBox)
+						.attr("preserveAspectRatio","xMaxYMax")
 
-
-var displayData = d3.select("#data_container")
-
-ddata=[]
-newData.forEach(function(e,i){
+	ddata=[]
+	newData.forEach(function(e,i){
 
 	ddata.push(e.data)
 
@@ -48,15 +121,15 @@ newData.forEach(function(e,i){
 							.style("stroke","#FFFFFF")
 							.style("cursor","pointer")
 							.on("mouseover", function(d) {	
-					            div.transition()		
+					            tooltip.transition()		
 					                .duration(200)		
 					                .style("opacity", .9);		
-					            div	.html(d.name)	
+					            tooltip	.html(d.name)	
 					                .style("left", (d3.event.pageX) + "px")		
 					                .style("top", (d3.event.pageY - 28) + "px");	
 					            })					
 					        .on("mouseout", function() {		
-					            div.transition()		
+					            tooltip.transition()		
 					                .duration(500)		
 					                .style("opacity", 0);	
 					        })
@@ -66,29 +139,16 @@ newData.forEach(function(e,i){
 					        		//doubleclick event
 					        		d.clicked = false;
 								    clearTimeout(timer);
-								    d3.select("#map_container").style("display","none")
-									d3.select("#zoom_container").style("display","inline")
-								    //append
-								    d3.select("#zoom_container")
-								    	.append("svg")
-								    		.attr("height",mapData.svg.height)
-											.attr("width",mapData.svg.width)
-											.attr("viewBox",e.svg.viewBox)
-											.append("g")	
 
-												//.attr("transform",element.transform)
-													.append("path")
-
-													.attr("style",e.svg.style)
-													.attr("d",e.svg.path)
-
-													.style("fill","blue")
-													.data(d)
+								    //create new view from element
+								    addView(d.name,e)
+								    selectView(d.name)
 					        	}
 					        	else{
 					        		//single clicl event
 					        		timer = setTimeout(function() {
-							           displayData.html("назив : "+d.name+"<br> тип : "+d.type+"<br> популација : "+d.population+"		извор : "+d.populationSource)
+
+							            d3.select("#naseljaData").html("назив : "+d.name+"<br> тип : "+d.type+"<br> популација : "+d.population+"		извор : "+d.populationSource)
 					        			d.clicked=false
 							        }, 300);
 							        d.clicked = true;
@@ -98,9 +158,17 @@ newData.forEach(function(e,i){
 
 					        svg.selectAll("path").data(ddata)
 
-})
+	})
 
-//animation
+	//add view buttons
+	{
+
+		buttonContainer=d3.select("#button_container")
+
+		div=buttonContainer
+				.append("div")
+					.attr("id",viewName+"Btns")
+		//animation
 		var animation=function(time){
 			svg.selectAll("path").style("stroke-width","500px")
 			svg.selectAll("path").transition().duration(time).style("stroke-width","10px")
@@ -113,19 +181,18 @@ newData.forEach(function(e,i){
 		    .domain([0, +1000,+2000,+4000,+8000,+16000,+32000,+64000])
 		    .range(colors);
 
-		//actions on buttons
-		d3.select("#all_btn")
+		
+		div.append("button")
+			.text("СВА НАСЕЉА")
 			.on("click",function(){
-				//show all elements 
-				//fill with blue
-
 				d3.selectAll("path")
 					.style("fill","blue")
 
 				animation(750)
 			})
 
-		d3.select("#city_btn")
+		div.append("button")
+			.text("ГРАДСКА НАСЕЉА")
 			.on("click",function(){
 				//show city elements 
 				//fill with blue
@@ -140,9 +207,10 @@ newData.forEach(function(e,i){
 					.style("fill","blue")
 
 				animation(750)
-			})
+				})
 
-		d3.select("#suburb_btn")
+		div.append("button")
+			.text("ПРИГРАСКА НАСЕЉА")
 			.on("click",function(){
 				//show suburb elements 
 				//fill with blue
@@ -155,38 +223,43 @@ newData.forEach(function(e,i){
 						return d.type=="приградско насеље"
 					})
 					.style("fill","blue")
-
 				animation(750)
 
 			})
 
-		d3.select("#village_btn")
-			.on("click",function(){
-				//show village elements 
-				//fill with blue
+			div.append("button")
+				.text("СЕОСКА НАСЕЉА")
+				.on("click",function(){
+					//show village elements 
+					//fill with blue
 
-				d3.selectAll("path")
-					.style("fill","gray")
+					d3.selectAll("path")
+						.style("fill","gray")
 
-				d3.selectAll("path")
-					.filter(function(d){
-						return d.type=="сеоско насеље"
-					})
-					.style("fill","blue")
+					d3.selectAll("path")
+						.filter(function(d){
+							return d.type=="сеоско насеље"
+						})
+						.style("fill","blue")
+
+					animation(750)
+
+				})
+
+			div.append("button")
+				.text("РАСПОДЕЛА СТАНОВНИШТВА")
+				.on("click",function(){
+					d3.selectAll("path")
+						.style("fill",function(d){return colorScale(d.population)})
 
 				animation(750)
 
 			})
+	}
 
-		d3.select("#population_btn")
-			.on("click",function(){
-				d3.selectAll("path")
-					.style("fill",function(d){return colorScale(d.population)})
 
-			animation(750)
-
-		})
-
+	
+}
 
 
 

@@ -22,34 +22,27 @@
 
 	<body>
     <div class="container-fluid">
-        <hr>
-        <button class="button-primary" id="all_btn">СВА НАСЕЉА</button>
-        <button class="button-primary" id="city_btn">ГРАДСКА НАСЕЉА</button>
-        <button class="button-primary" id="suburb_btn">ПРИГРАДСКА НАСЕЉА</button>          
-        <button class="button-primary" id="village_btn">СЕОСКА НАСЕЉА</button>
-
-        <button class="button-primary" id="population_btn">РАСПОДЕЛА СТАНОВНИШТВА</button>
-
+        <div class="row" style="border-style: solid;margin: 10px;padding: 10px">
+            <button id="viewNaselja" >НАСЕЉА</button>
+            <button id="viewMZajednice" >МЕСНЕ ЗАЈЕДНИЦЕ</button>
+        </div>
         <div class="row">
+            <div class="col-md-2" id="viewList" style="border-style: solid;height:100%"></div>
             <div class="col-md-6">
               <div id="map_container"></div>
-              <div id="zoom_container">
-                
-                <button class="button-primary" id="back_btn">НАЗАД</button>
-              </div>
+              
             </div>
-            <div class="col-md-6">
-              <div id="data_container">
-                
-
-
+            <div class="col-md-4">
+              <div id="button_container" style="border-style: solid;margin: 10px;padding: 10px">
+              </div>
+              <br>
+              <div id="data_container" style="border-style: solid;margin: 10px;padding: 10px">    
               </div>
 
             </div>
         </div>
 
-    </div>
-
+       </div>
 
     <!--scripts-->
     <script src="newData.js"></script>
