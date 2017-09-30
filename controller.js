@@ -7,7 +7,7 @@ var tooltip = d3.select("body").append("div")
 d3.select("#viewNaselja").on("click",function(){
 
 	//add card to viewList
-	addView("naselja")
+	addView(mapData.data.name,mapData)
 })
 
 var removeView=function(viewName){
@@ -54,9 +54,11 @@ var addView=function(viewName,element){
 					.attr("id",viewName+"Card")	
 		card.append("button")
 			.text(viewName)
+			.attr("class","btn btn-primary")
 			.on("click",function(){selectView(viewName)})
 		card.append("button")
 			.text("X")
+			.attr("class","btn btn-primary")
 			.on("click",function(){removeView(viewName)})	
 	}
 
@@ -100,5 +102,18 @@ var addView=function(viewName,element){
 }
 
 
+///util
+var a=true
+
+d3.select("#toggleBorders")
+	.on("click",function(){
+		style="solid"
+		if(a)
+			style="none"
+		d3.selectAll(".cnt")
+			.style("border-style",style)
+
+		a=!a
+	})
 
 

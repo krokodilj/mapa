@@ -22,21 +22,22 @@
 
 	<body>
     <div class="container-fluid">
-        <div class="row" style="border-style: solid;margin: 10px;padding: 10px">
-            <button id="viewNaselja" >НАСЕЉА</button>
-            <button id="viewMZajednice" >МЕСНЕ ЗАЈЕДНИЦЕ</button>
+        <div class="row cnt" style="margin: 10px;padding: 10px">
+            <button class="btn btn-primary" id="viewNaselja" >НАСЕЉА</button>
+
+            <button class="btn btn-default pull-right" id="toggleBorders" >toggle_borders</button>
         </div>
         <div class="row">
-            <div class="col-md-3" id="viewList" style="border-style: solid;margin: 10px;padding: 10px"></div>
+            <div class="col-md-3 cnt" id="viewList" style="margin: 10px;padding: 10px"></div>
             <div class="col-md-5">
-              <div id="map_container" style="width: auto;height: auto;border-style: solid;margin: 10px;padding: 10px"></div>
+              <div id="map_container" class="cnt" style="width: auto;height: auto;margin: 10px;padding: 10px"></div>
               
             </div>
             <div class="col-md-3">
-              <div id="button_container" style="border-style: solid;margin: 10px;padding: 10px">
+              <div id="button_container" class="cnt" style="margin: 10px;padding: 10px">
               </div>
               <br>
-              <div id="data_container" style="border-style: solid;margin: 10px;padding: 10px">    
+              <div id="data_container" class="cnt" style="margin: 10px;padding: 10px">    
               </div>
 
             </div>
@@ -48,7 +49,8 @@
     <script src="newData.js"></script>
 		
 		<script src="https://d3js.org/d3.v4.min.js"></script>    
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 	      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -56,6 +58,7 @@
         crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+
 
 
     <script src="naseljeController.js"></script>

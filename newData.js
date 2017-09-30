@@ -1,10 +1,10 @@
 //////// allelements view data
 var mapData=
 	{
-		"data":{},
+		"data":{
+			"name":"naselja"
+		},
 		"svg":{
-			"width": "600",
-		   "height": "600",
 		   "viewBox": "0 0 3508.7898 4099.9086"		
 		}	
 	}
@@ -978,6 +978,4 @@ var newData=[
 			]
 		}
 	}
-
-
 ]

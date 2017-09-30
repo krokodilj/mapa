@@ -88,6 +88,7 @@ var naseljaController={}
 		
 		buttonContainer.append("button")
 			.text("СВА НАСЕЉА")
+			.attr("class","btn btn-primary")
 			.on("click",function(){
 				map.selectAll("path")
 					.style("fill","blue")
@@ -97,6 +98,7 @@ var naseljaController={}
 
 		buttonContainer.append("button")
 			.text("ГРАДСКА НАСЕЉА")
+			.attr("class","btn btn-primary")
 			.on("click",function(){
 				//show city elements 
 				//fill with blue
@@ -115,6 +117,7 @@ var naseljaController={}
 
 		buttonContainer.append("button")
 			.text("ПРИГРАСКА НАСЕЉА")
+			.attr("class","btn btn-primary")
 			.on("click",function(){
 				//show suburb elements 
 				//fill with blue
@@ -133,27 +136,27 @@ var naseljaController={}
 
 			})
 
-			buttonContainer.append("button")
-				.text("СЕОСКА НАСЕЉА")
-				.on("click",function(){
-					//show village elements 
-					//fill with blue
+		buttonContainer.append("button")
+			.text("СЕОСКА НАСЕЉА")
+			.attr("class","btn btn-primary")
+			.on("click",function(){
+				//show village elements 
+				//fill with blue
+				map.selectAll("path")
+					.style("fill","gray")
+				map.selectAll("path")
+					.filter(function(d){
+						return d.type=="сеоско насеље"
+					})
+					.style("fill","blue")
 
-					map.selectAll("path")
-						.style("fill","gray")
-
-					map.selectAll("path")
-						.filter(function(d){
-							return d.type=="сеоско насеље"
-						})
-						.style("fill","blue")
-
-					animation(750)
+				animation(750)
 
 				})
 
 			buttonContainer.append("button")
 				.text("РАСПОДЕЛА СТАНОВНИШТВА")
+				.attr("class","btn btn-primary")
 				.on("click",function(){
 					map.selectAll("path")
 						.style("fill",function(d){return colorScale(d.population)})
@@ -164,9 +167,7 @@ var naseljaController={}
 	}
 
 	naseljaController.createCard=function(viewName){
-		card=d3.select("#"+viewName+"Card")
-
-		
+		card=d3.select("#"+viewName+"Card")		
 	}
 
 
