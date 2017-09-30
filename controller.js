@@ -163,6 +163,8 @@ var addView=function(viewName,element){
 	//add view buttons
 	{
 
+		var map=d3.select("#"+viewName+"Map")
+
 		buttonContainer=d3.select("#button_container")
 
 		div=buttonContainer
@@ -170,8 +172,8 @@ var addView=function(viewName,element){
 					.attr("id",viewName+"Btns")
 		//animation
 		var animation=function(time){
-			svg.selectAll("path").style("stroke-width","500px")
-			svg.selectAll("path").transition().duration(time).style("stroke-width","10px")
+			map.selectAll("path").style("stroke-width","500px")
+			map.selectAll("path").transition().duration(time).style("stroke-width","10px")
 		}
 		animation(2000)
 
@@ -185,7 +187,7 @@ var addView=function(viewName,element){
 		div.append("button")
 			.text("СВА НАСЕЉА")
 			.on("click",function(){
-				d3.selectAll("path")
+				map.selectAll("path")
 					.style("fill","blue")
 
 				animation(750)
@@ -197,10 +199,10 @@ var addView=function(viewName,element){
 				//show city elements 
 				//fill with blue
 
-				d3.selectAll("path")
+				map.selectAll("path")
 					.style("fill","gray")
 
-				d3.selectAll("path")
+				map.selectAll("path")
 					.filter(function(d){
 						return d.type=="градско насеље"
 					})
@@ -215,14 +217,16 @@ var addView=function(viewName,element){
 				//show suburb elements 
 				//fill with blue
 
-				d3.selectAll("path")
+
+				map.selectAll("path")
 					.style("fill","gray")
 
-				d3.selectAll("path")
-					.filter(function(d){
-						return d.type=="приградско насеље"
-					})
-					.style("fill","blue")
+				
+				map.selectAll("path")
+						.filter(function(d){
+							return d.type=="приградско насеље"
+						})
+						.style("fill","blue")
 				animation(750)
 
 			})
@@ -233,10 +237,10 @@ var addView=function(viewName,element){
 					//show village elements 
 					//fill with blue
 
-					d3.selectAll("path")
+					map.selectAll("path")
 						.style("fill","gray")
 
-					d3.selectAll("path")
+					map.selectAll("path")
 						.filter(function(d){
 							return d.type=="сеоско насеље"
 						})
@@ -249,7 +253,7 @@ var addView=function(viewName,element){
 			div.append("button")
 				.text("РАСПОДЕЛА СТАНОВНИШТВА")
 				.on("click",function(){
-					d3.selectAll("path")
+					map.selectAll("path")
 						.style("fill",function(d){return colorScale(d.population)})
 
 				animation(750)
