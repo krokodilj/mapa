@@ -8,6 +8,14 @@ d3.select("#viewNaselja").on("click",function(){
 
 	//add card to viewList
 	addView(mapData.data.name,mapData)
+	selectView(mapData.data.name)
+})
+
+d3.select("#viewMZajednice").on("click",function(){
+
+	//add card to viewList
+	addView("MesneZajednice",mapData)
+	selectView("MesneZajednice")
 })
 
 var removeView=function(viewName){
@@ -91,8 +99,9 @@ var addView=function(viewName,element){
 		naseljaController.createCard(viewName)
 		naseljaController.createMap(viewName)
 		naseljaController.createBtns(viewName)
-	}else if(viewName=="mesne zajednice"){
-			//TODO
+	}else if(viewName=="MesneZajednice"){
+			mzajedniceController.createMap(viewName)
+			mzajedniceController.createBtns(viewName)
 	}else{
 		//kreiraj view iz elementa naselje
 		naseljeController.createCard(viewName)
